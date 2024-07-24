@@ -1,29 +1,21 @@
 package meldexun.better_diving;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import meldexun.better_diving.api.BetterDivingModules;
 import meldexun.better_diving.config.BetterDivingConfig;
 import meldexun.better_diving.event.FeatureEventHandler;
-import meldexun.better_diving.init.BetterDivingBlocks;
-import meldexun.better_diving.init.BetterDivingCapabilities;
-import meldexun.better_diving.init.BetterDivingContainers;
-import meldexun.better_diving.init.BetterDivingEntities;
-import meldexun.better_diving.init.BetterDivingFeatures;
-import meldexun.better_diving.init.BetterDivingItems;
-import meldexun.better_diving.init.BetterDivingPackets;
-import meldexun.better_diving.init.BetterDivingSounds;
+import meldexun.better_diving.init.*;
 import meldexun.better_diving.oxygenprovider.DivingGearManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.config.ModConfig.Type;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(BetterDiving.MOD_ID)
 public class BetterDiving {
@@ -54,7 +46,7 @@ public class BetterDiving {
 		FeatureEventHandler.registerConfiguredFeatures();
 	}
 
-	private void updateConfig(ModConfig.ModConfigEvent event) {
+	private void updateConfig(ModConfigEvent.Reloading event) {
 		if (event.getConfig().getModId().equals(MOD_ID)) {
 			DivingGearManager.reloadConfigs();
 			BetterDivingModules.breakSpeedChanges = BetterDivingConfig.SERVER_CONFIG.breakSpeedChanges.get();
